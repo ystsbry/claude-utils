@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# claude-utils-list: ~/.claude-utils/session 配下のセッション一覧と作成日時を表示する
+#
+# Usage:
+#   claude-utils-list [--json]
+#
+# Options:
+#   --json      JSON形式で出力する
+#   -h, --help  ヘルプを表示する
+
+JSON_OUTPUT=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --json)
+      JSON_OUTPUT=true
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: claude-utils-list [--json]"
+      echo ""
+      echo "~/.claude-utils/session 配下のセッション一覧と作成日時を表示する。"
+      echo ""
+      echo "Options:"
+      echo "  --json      JSON形式で出力する"
+      echo "  -h, --help  ヘルプを表示する"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+TARGET_DIR="${HOME}/.claude-utils/session"
+
+if [[ ! -d "$TARGET_DIR" ]]; then
+  if [[ "$JSON_OUTPUT" == true ]]; then
+    echo "[]"
+  else
+    echo "セッションディレクトリが存在しません: ${TARGET_DIR}"
+  fi
+  exit 0
+fi
+
+SESSION_COUNT=$(find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
+
+if [[ "$SESSION_COUNT" -eq 0 ]]; then
+  if [[ "$JSON_OUTPUT" == true ]]; then
+    echo "[]"
+  else
+    echo "セッションはありません。"
+  fi
+  exit 0
+fi
+
+if [[ "$JSON_OUTPUT" == true ]]; then
+  echo "["
+  first=true
+  find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -type d | sort | while read -r dir; do
+    session_name=$(basename "$dir")
+    created_at=$(stat -c '%W' "$dir" 2>/dev/null)
+    if [[ "$created_at" == "0" || -z "$created_at" ]]; then
+      created_at=$(stat -c '%Y' "$dir")
+    fi
+    created_date=$(date -d "@${created_at}" '+%Y-%m-%d %H:%M:%S' 2>/dev/null)
+    file_count=$(find "$dir" -type f | wc -l)
+    files=$(find "$dir" -type f -printf '%f\n' | sort | paste -sd ',' -)
+
+    if [[ "$first" == true ]]; then
+      first=false
+    else
+      echo ","
+    fi
+    printf '  {"name": "%s", "created_at": "%s", "file_count": %d, "files": "%s"}' \
+      "$session_name" "$created_date" "$file_count" "$files"
+  done
+  echo ""
+  echo "]"
+else
+  printf "%-40s  %-20s  %s\n" "SESSION" "CREATED" "FILES"
+  printf "%-40s  %-20s  %s\n" "-------" "-------" "-----"
+
+  find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -type d | sort | while read -r dir; do
+    session_name=$(basename "$dir")
+    created_at=$(stat -c '%W' "$dir" 2>/dev/null)
+    if [[ "$created_at" == "0" || -z "$created_at" ]]; then
+      created_at=$(stat -c '%Y' "$dir")
+    fi
+    created_date=$(date -d "@${created_at}" '+%Y-%m-%d %H:%M:%S' 2>/dev/null)
+    file_count=$(find "$dir" -type f | wc -l)
+    files=$(find "$dir" -type f -printf '%f\n' | sort | paste -sd ', ' -)
+
+    printf "%-40s  %-20s  %d (%s)\n" "$session_name" "$created_date" "$file_count" "$files"
+  done
+fi

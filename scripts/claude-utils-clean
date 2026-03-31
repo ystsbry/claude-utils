@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# claude-utils-clean: ~/.claude-utils/session 配下の一時ファイルを削除する
+#
+# Usage:
+#   claude-utils-clean [--dry-run]
+#
+# Options:
+#   --dry-run   削除せずに対象を表示する
+#   -h, --help  ヘルプを表示する
+
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      DRY_RUN=true
+      shift
+      ;;
+    -h|--help)
+      echo "Usage: claude-utils-clean [--dry-run]"
+      echo ""
+      echo "~/.claude-utils/session 配下の一時ファイルを削除する。"
+      echo ""
+      echo "Options:"
+      echo "  --dry-run   削除せずに対象を表示する"
+      echo "  -h, --help  ヘルプを表示する"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+TARGET_DIR="${HOME}/.claude-utils/session"
+
+if [[ ! -d "$TARGET_DIR" ]]; then
+  echo "対象ディレクトリが存在しません: ${TARGET_DIR}"
+  exit 0
+fi
+
+SESSION_COUNT=$(find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -type d | wc -l)
+
+if [[ "$SESSION_COUNT" -eq 0 ]]; then
+  echo "削除対象のセッションはありません。"
+  exit 0
+fi
+
+echo "対象: ${TARGET_DIR}"
+echo "セッション数: ${SESSION_COUNT}"
+echo ""
+
+find "$TARGET_DIR" -mindepth 1 -maxdepth 1 -type d | sort | while read -r dir; do
+  session_name=$(basename "$dir")
+  file_count=$(find "$dir" -type f | wc -l)
+  echo "  ${session_name} (${file_count} files)"
+done
+
+echo ""
+
+if [[ "$DRY_RUN" == true ]]; then
+  echo "[dry-run] 削除はスキップされました。"
+else
+  rm -rf "${TARGET_DIR:?}"/*
+  echo "削除完了。"
+fi

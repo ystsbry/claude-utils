@@ -9,7 +9,10 @@
     {
       "name": "claude-utils",
       "description": "開発ワークフロー支援スキル集（コミットメッセージ生成、PBI作成、デザインドキュメント生成など）",
-      "source": "github:ystsbry/claude-utils",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ystsbry/claude-utils.git"
+      },
       "category": "productivity"
     }
   ]

@@ -20,7 +20,7 @@ claude-utils-list
 コマンドが見つからない場合は、リポジトリ内のスクリプトを直接実行してください：
 
 ```bash
-bash /home/ybaba/git-repo/my-repo/claude-utils/bin/claude-utils-list
+bash /home/ybaba/git-repo/my-repo/claude-utils/scripts/claude-utils-list
 ```
 
 ## ステップ2: 結果を表示する

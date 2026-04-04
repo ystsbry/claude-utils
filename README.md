@@ -1,24 +1,28 @@
 # claude-utils
 
-Claude Code で使用するカスタムスキルやユーティリティを管理するプラグインです。
+Claude Code で使用するカスタムスキルやユーティリティを管理するリポジトリです。
 
 ## セットアップ
 
-### プラグインとしてインストールする（推奨）
+### スキルをインストールする
 
-Claude Code のプラグインシステムを使ってインストールできます。
-
-**ローカルからテスト：**
+`skills/` 配下の各スキルを `~/.claude/skills/` にシンボリックリンクとして配置します。
 
 ```bash
-claude --plugin-dir /path/to/claude-utils
+make install-skills
 ```
 
-スキルは `/claude-utils:<スキル名>` の形式で呼び出せます（例: `/claude-utils:commit-msg`）。
+インストール後、Claude Code がスキルを自動検出し、すべてのプロジェクトで利用可能になります。
+
+アンインストールする場合：
+
+```bash
+make uninstall-skills
+```
 
 ### ユーティリティスクリプトをインストールする
 
-`bin/` 配下のユーティリティスクリプトを `/usr/local/bin` にインストールできます。
+`scripts/` 配下のユーティリティスクリプトを `/usr/local/bin` にインストールできます。
 
 ```bash
 sudo make install
@@ -42,6 +46,16 @@ sudo make install PREFIX=/opt/bin
 ```bash
 sudo make uninstall
 ```
+
+### プラグインとしてインストールする
+
+Claude Code のプラグインシステムを使ってインストールすることもできます。
+
+```bash
+claude --plugin-dir /path/to/claude-utils
+```
+
+スキルは `/claude-utils:<スキル名>` の形式で呼び出せます（例: `/claude-utils:commit-msg`）。
 
 ## スキル一覧
 

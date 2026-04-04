@@ -12,7 +12,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ystsbry/claude-utils.git",
-        "sha": "YOUR_COMMIT_SHA"
+        "sha": "5c85f8c4ee737394719df1ab977f4fb14156057b"
       },
       "category": "productivity"
     }

@@ -1,31 +1,24 @@
 # claude-utils
 
-Claude Code で使用するカスタムスキルやユーティリティを管理するリポジトリです。
+Claude Code で使用するカスタムスキルやユーティリティを管理するプラグインです。
 
 ## セットアップ
 
-### カスタムスキルをグローバルに利用する
+### プラグインとしてインストールする（推奨）
 
-このリポジトリの `skills/` ディレクトリ配下のスキルを、すべてのプロジェクトで利用できるようにするには、`~/.claude/skills` へのシンボリックリンクを作成します。
+Claude Code のプラグインシステムを使ってインストールできます。
+
+**ローカルからテスト：**
 
 ```bash
-# ~/.claude/skills が既に存在する場合は事前に退避・削除してください
-ln -s /path/to/claude-utils/skills ~/.claude/skills
+claude --plugin-dir /path/to/claude-utils
 ```
 
-各スキルは `skills/<スキル名>/SKILL.md` の構成で配置してください。
-
-```
-skills/
-└── my-skill/
-    └── SKILL.md
-```
-
-シンボリックリンク作成後、Claude Code が自動的にスキルを検出し、すべてのプロジェクトで利用可能になります。
+スキルは `/claude-utils:<スキル名>` の形式で呼び出せます（例: `/claude-utils:commit-msg`）。
 
 ### ユーティリティスクリプトをインストールする
 
-`scripts/` 配下のユーティリティスクリプトを `/usr/local/bin` にインストールできます。
+`bin/` 配下のユーティリティスクリプトを `/usr/local/bin` にインストールできます。
 
 ```bash
 sudo make install
@@ -49,3 +42,14 @@ sudo make install PREFIX=/opt/bin
 ```bash
 sudo make uninstall
 ```
+
+## スキル一覧
+
+| スキル | 説明 |
+|---|---|
+| `commit-msg` | staged changes から Conventional Commit 形式のコミットメッセージを生成 |
+| `code-reading` | フロントエンド・バックエンド横断でコードを読み解き全体像を可視化 |
+| `delivery-guide` | デザインドキュメントから実装ガイドを生成 |
+| `design-doc` | ざっくりした要件から Design Document を生成 |
+| `pbi` | タイトルから PBI（Product Backlog Item）を生成 |
+| `session-list` | セッション一覧を表示 |

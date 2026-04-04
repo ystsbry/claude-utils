@@ -3,8 +3,8 @@ PREFIX ?= /usr/local/bin
 .PHONY: install uninstall
 
 install:
-	install -m 755 scripts/claude-utils-clean $(PREFIX)/claude-utils-clean
-	install -m 755 scripts/claude-utils-list $(PREFIX)/claude-utils-list
+	install -m 755 bin/claude-utils-clean $(PREFIX)/claude-utils-clean
+	install -m 755 bin/claude-utils-list $(PREFIX)/claude-utils-list
 	@echo "Installed claude-utils-clean to $(PREFIX)/claude-utils-clean"
 	@echo "Installed claude-utils-list to $(PREFIX)/claude-utils-list"
 

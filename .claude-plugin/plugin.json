@@ -1,0 +1,6 @@
+{
+  "name": "claude-utils",
+  "description": "開発ワークフロー支援スキル集（コミットメッセージ生成、PBI作成、デザインドキュメント生成など）",
+  "version": "1.0.0",
+  "author": { "name": "ystsbry" }
+}

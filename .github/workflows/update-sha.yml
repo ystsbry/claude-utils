@@ -1,4 +1,6 @@
 on: [push]
+permissions:
+  contents: write
 jobs:
   update-sha:
     runs-on: ubuntu-latest

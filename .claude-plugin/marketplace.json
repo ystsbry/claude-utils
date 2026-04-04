@@ -11,7 +11,8 @@
       "description": "開発ワークフロー支援スキル集（コミットメッセージ生成、PBI作成、デザインドキュメント生成など）",
       "source": {
         "source": "url",
-        "url": "https://github.com/ystsbry/claude-utils.git"
+        "url": "https://github.com/ystsbry/claude-utils.git",
+        "sha": "YOUR_COMMIT_SHA"
       },
       "category": "productivity"
     }

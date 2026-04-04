@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-utils",
+  "description": "開発ワークフロー支援スキル集（コミットメッセージ生成、PBI作成、デザインドキュメント生成など）",
+  "owner": {
+    "name": "ystsbry"
+  },
+  "plugins": [
+    {
+      "name": "claude-utils",
+      "description": "開発ワークフロー支援スキル集（コミットメッセージ生成、PBI作成、デザインドキュメント生成など）",
+      "source": ".",
+      "category": "productivity"
+    }
+  ]
+}

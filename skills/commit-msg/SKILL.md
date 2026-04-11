@@ -1,5 +1,5 @@
 ---
-name: claude-code-commit
+name: commit-msg
 description: staged changes からConventional Commit形式のコミットメッセージを日本語で生成する。ユーザーが「コミットメッセージを作って」「staged の内容からコミット」「git commit」「conventional commit」「差分からコミット」などと言ったときは必ずこのスキルを使う。明示的な言及がなくてもコミットメッセージの作成を求めていると判断できる場合は積極的に使う。
 ---
  

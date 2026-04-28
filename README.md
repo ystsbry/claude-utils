@@ -63,6 +63,7 @@ claude --plugin-dir /path/to/claude-utils
 |---|---|
 | `commit-msg` | staged changes から Conventional Commit 形式のコミットメッセージを生成 |
 | `code-reading` | フロントエンド・バックエンド横断でコードを読み解き全体像を可視化 |
+| `code-review` | PR・ブランチ差分から実装者へのリスペクトを基本姿勢にしたレビューコメントを生成 |
 | `delivery-guide` | デザインドキュメントから実装ガイドを生成 |
 | `design-doc` | ざっくりした要件から Design Document を生成 |
 | `pbi` | タイトルから PBI（Product Backlog Item）を生成 |

@@ -67,4 +67,5 @@ claude --plugin-dir /path/to/claude-utils
 | `delivery-guide` | デザインドキュメントから実装ガイドを生成 |
 | `design-doc` | ざっくりした要件から Design Document を生成 |
 | `pbi` | タイトルから PBI（Product Backlog Item）を生成 |
+| `resolve-conflict` | main を最新化して現在のブランチにマージし、コンフリクトを解消してレポートを提示 |
 | `session-list` | セッション一覧を表示 |
